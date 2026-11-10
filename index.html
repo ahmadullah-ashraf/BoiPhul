@@ -1,121 +1,737 @@
 <!doctype html>
-<html lang="bn">
+<html lang="bn" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>বইফুল – ইসলামিক ও সাধারণ লাইব্রেরি</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Hind+Siliguri:wght@400;500;600&family=Noto+Serif+Bengali:wght@400;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0d1a18">
+<title>বইফুল – ই-বুক, মাসআলা ও ইসলামিক কমিউনিটি</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d1a18;--sf:#142622;--ink:#dce8e4;--mu:#8fa7a1;--ln:#26403b;--ac:#5fc3a8;--on:#06201a;--gd:#d8ae55;--rd:#ff8a80;--fs:18px;box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 "Hind Siliguri",sans-serif;min-height:100vh;padding-bottom:70px}
-.wrap{max-width:640px;margin:0 auto;padding:16px}
-header{padding:12px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ln);margin-bottom:16px}
-h1{font:600 24px "Noto Serif Bengali",serif;margin:0;color:var(--ac)}
-.btn{background:var(--ac);color:var(--on);font-weight:500;border:0;padding:8px 14px;border-radius:10px;cursor:pointer}
-.ghost{background:var(--sf);border:1px solid var(--ln);color:var(--ink)}
-.box{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:14px;margin:12px 0}
-input[type=text],textarea{width:100%;border:1px solid var(--ln);background:var(--bg);color:var(--ink);border-radius:10px;padding:10px;font:inherit;margin-top:6px}
-textarea{min-height:80px;resize:vertical}
-.post{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:14px;margin-bottom:12px}
-.who{font-weight:600;color:var(--ac)}
-.when{color:var(--mu);font-size:12px}
-.bk{display:flex;gap:12px;padding:12px;background:var(--sf);border:1px solid var(--ln);border-radius:12px;margin-bottom:10px;cursor:pointer}
-.cv{width:45px;height:65px;border-radius:4px;display:grid;place-items:center;font:700 22px Amiri,serif;background:var(--ac);color:var(--on)}
-nav{position:fixed;left:0;right:0;bottom:0;background:var(--sf);border-top:1px solid var(--ln);display:flex;justify-content:space-around;padding:8px 0;z-index:20}
-nav button{background:none;border:0;color:var(--mu);font:inherit;cursor:pointer;font-size:14px}
-nav button.on{color:var(--ac);font-weight:600}
-.note{color:var(--mu);font-size:13px}
+:root {
+  --bg: #f3f6f4;
+  --sf: #ffffff;
+  --sf2: #eaf0ed;
+  --ink: #122925;
+  --mu: #526b65;
+  --ln: #d2e0dc;
+  --ac: #0f5c4d;
+  --on: #ffffff;
+  --gd: #b3831e;
+  --rd: #c62828;
+  --fs: 18px;
+  --shadow: 0 4px 16px rgba(15, 92, 77, 0.06);
+}
+:root[data-theme="dark"] {
+  --bg: #0b1614;
+  --sf: #122420;
+  --sf2: #19302b;
+  --ink: #e2edea;
+  --mu: #8ca69f;
+  --ln: #233d37;
+  --ac: #57c4a7;
+  --on: #051f19;
+  --gd: #dfb55c;
+  --rd: #ff8a80;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 15px/1.65 "Hind Siliguri", system-ui, sans-serif;
+  padding-bottom: 78px;
+  transition: background 0.25s, color 0.25s;
+}
+[hidden] { display: none !important; }
+.wrap { max-width: 680px; margin: 0 auto; padding: 0 16px; }
+
+/* Header */
+header {
+  position: sticky; top: 0; z-index: 30;
+  background: var(--bg);
+  border-bottom: 1px solid var(--ln);
+  padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand { display: flex; align-items: center; gap: 8px; }
+.brand h1 { font: 700 22px "Noto Serif Bengali", serif; margin: 0; color: var(--ac); }
+.badge-gd { font-size: 11px; padding: 2px 8px; border-radius: 20px; border: 1px solid var(--gd); color: var(--gd); font-weight: 600; }
+.h-actions { display: flex; align-items: center; gap: 8px; }
+
+/* Buttons & Inputs */
+button { font: inherit; cursor: pointer; border: 0; border-radius: 10px; transition: 0.2s; }
+.btn { background: var(--ac); color: var(--on); font-weight: 600; padding: 9px 16px; }
+.btn:active { transform: scale(0.97); }
+.ghost { background: var(--sf); border: 1px solid var(--ln); color: var(--ink); padding: 8px 12px; }
+.icon-btn { background: var(--sf2); color: var(--ink); width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; font-size: 16px; }
+.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
+.rd { color: var(--rd); }
+
+input, textarea, select {
+  width: 100%; border: 1px solid var(--ln); background: var(--bg); color: var(--ink);
+  border-radius: 12px; padding: 10px 14px; font: inherit; margin-top: 6px;
+}
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--ac); border-color: transparent; }
+
+/* Cards & Boxes */
+.card {
+  background: var(--sf); border: 1px solid var(--ln); border-radius: 16px;
+  padding: 16px; margin: 14px 0; box-shadow: var(--shadow);
+}
+.note { color: var(--mu); font-size: 13px; }
+.toast {
+  position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+  background: var(--ac); color: var(--on); padding: 8px 18px; border-radius: 30px;
+  font-weight: 600; font-size: 14px; z-index: 100; box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* Search & Filter Chips */
+.search-box { position: relative; margin: 14px 0 10px; }
+.search-box input { margin: 0; padding-left: 38px; background: var(--sf); }
+.search-box span { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--mu); }
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+  background: var(--sf); border: 1px solid var(--ln); color: var(--mu);
+  padding: 6px 14px; border-radius: 20px; font-size: 13px; white-space: nowrap; font-weight: 500;
+}
+.chip.on { background: var(--ac); color: var(--on); border-color: var(--ac); font-weight: 600; }
+
+/* Bookshelf */
+.book-item {
+  display: flex; gap: 14px; align-items: center;
+  background: var(--sf); border: 1px solid var(--ln); border-radius: 14px;
+  padding: 12px; margin-bottom: 12px; cursor: pointer; transition: 0.2s;
+}
+.book-item:hover { border-color: var(--ac); }
+.cover {
+  flex: none; width: 56px; height: 78px; border-radius: 6px 10px 10px 6px;
+  display: grid; place-items: center; font: 700 26px "Amiri", serif; color: #fff;
+  border-left: 6px solid rgba(0,0,0,0.28); box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+}
+.book-meta h3 { font: 600 17px/1.35 "Noto Serif Bengali", serif; margin: 0 0 4px; }
+.cat-pill { display: inline-block; font-size: 11px; background: var(--sf2); color: var(--ac); padding: 2px 8px; border-radius: 6px; font-weight: 600; }
+
+/* Reader Mode */
+.reader-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--sf); padding: 10px 14px; border-radius: 12px; border: 1px solid var(--ln); margin-top: 12px;
+}
+article {
+  background: var(--sf); border: 1px solid var(--ln); border-radius: 16px;
+  padding: 22px 18px; margin: 14px 0;
+  font: 400 var(--fs)/1.95 "Noto Serif Bengali", serif;
+}
+article h2 { font: 700 1.35em/1.4 "Noto Serif Bengali", serif; color: var(--ac); margin-top: 0; border-bottom: 1px dashed var(--ln); padding-bottom: 10px; }
+article p.ar { font: 400 1.45em/2.2 "Amiri", serif; direction: rtl; text-align: center; color: var(--gd); background: var(--sf2); padding: 12px; border-radius: 10px; }
+
+/* Masala Section */
+.masala-q { font: 600 16px "Noto Serif Bengali", serif; color: var(--gd); margin: 0 0 6px; }
+.masala-a { margin: 0; font-size: 15px; }
+.ref-tag { display: inline-block; margin-top: 8px; font-size: 12px; color: var(--ac); background: var(--sf2); padding: 2px 8px; border-radius: 6px; }
+
+/* Facebook Style Social Feed */
+.post-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.user-info { display: flex; align-items: center; gap: 10px; }
+.avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--ac); color: var(--on); display: grid; place-items: center; font-weight: 700; font-size: 16px; }
+.post-body { font-size: 15.5px; white-space: pre-wrap; margin: 8px 0 12px; }
+.quote-box { border-left: 3px solid var(--gd); background: var(--sf2); padding: 10px 12px; border-radius: 0 10px 10px 0; font-style: italic; margin: 8px 0; font-family: "Noto Serif Bengali", serif; }
+.post-actions { display: flex; gap: 8px; border-top: 1px solid var(--ln); padding-top: 10px; }
+.post-actions button { flex: 1; background: var(--sf2); color: var(--ink); padding: 7px; font-size: 13px; font-weight: 500; border-radius: 8px; }
+.post-actions button.liked { color: var(--rd); font-weight: 700; }
+.comments-area { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--ln); }
+.comment-item { background: var(--bg); padding: 8px 12px; border-radius: 10px; margin-bottom: 6px; font-size: 14px; }
+.comment-form { display: flex; gap: 6px; margin-top: 8px; }
+.comment-form input { margin: 0; padding: 8px 12px; font-size: 14px; }
+
+/* Modal for Auth */
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: grid; place-items: center; z-index: 50; padding: 16px; }
+.modal { background: var(--sf); border: 1px solid var(--ln); border-radius: 18px; padding: 20px; width: 100%; max-width: 400px; }
+
+/* Bottom Navigation */
+nav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  background: var(--sf); border-top: 1px solid var(--ln);
+  display: flex; justify-content: space-around; padding: 6px 0 calc(6px + env(safe-area-inset-bottom, 0px));
+}
+nav button {
+  flex: 1; background: none; color: var(--mu); font-size: 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0;
+}
+nav button span.ico { font-size: 19px; }
+nav button.on { color: var(--ac); font-weight: 700; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
+
+<div id="toast" class="toast" hidden></div>
+
+<header>
+  <div class="brand">
     <h1>📖 বইফুল</h1>
-    <span class="note" id="uname">লগইন করা নেই</span>
-  </header>
+    <span class="badge-gd" id="roleBadge">পাঠক</span>
+  </div>
+  <div class="h-actions">
+    <button class="icon-btn" onclick="toggleTheme()" title="থিম পরিবর্তন">🌓</button>
+    <button class="btn sm" id="authBtn" onclick="openAuth()">লগইন</button>
+  </div>
+</header>
 
-  <!-- বইয়ের সেকশন -->
-  <section id="t-books">
-    <div id="booksList">
-      <div class="bk" onclick="alert('নমুনা বই: খুব শীঘ্রই ডাটাবেজ থেকে হাজারো ইসলামিক ও অন্যান্য বই যুক্ত হবে!')">
-        <div class="cv">র</div>
-        <div>
-          <b>রমজানের শিক্ষা ও প্রস্তুতি</b>
-          <span class="note">ইসলামিক বই · লেখক: ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর</span>
+<div class="wrap">
+
+  <!-- ১. বইসমূহ (ই-বুক লাইব্রেরি) -->
+  <section id="tab-books">
+    <div id="libraryView">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="bookSearch" placeholder="বই বা লেখকের নাম খুঁজুন..." oninput="renderBooks()">
+      </div>
+      <div class="chips" id="catChips">
+        <button class="chip on" onclick="setCat('সব', this)">সব বই</button>
+        <button class="chip" onclick="setCat('ইসলামিক', this)">ইসলামিক</button>
+        <button class="chip" onclick="setCat('ফিকহ ও মাসআলা', this)">ফিকহ ও মাসআলা</button>
+        <button class="chip" onclick="setCat('সিরাত ও ইতিহাস', this)">সিরাত ও ইতিহাস</button>
+        <button class="chip" onclick="setCat('সাহিত্য ও উপন্যাস', this)">সাহিত্য ও উপন্যাস</button>
+      </div>
+      <div id="booksContainer" style="margin-top: 12px;"></div>
+    </div>
+
+    <!-- বই পড়ার রিডার ভিউ -->
+    <div id="readerView" hidden>
+      <div class="reader-bar">
+        <button class="ghost sm" onclick="closeReader()">← তালিকা</button>
+        <div style="display:flex; gap:6px;">
+          <button class="ghost sm" onclick="changeFont(-2)">A-</button>
+          <button class="ghost sm" onclick="changeFont(2)">A+</button>
+          <button class="ghost sm" id="bmBtn" onclick="toggleBookmark()">🔖 সেভ</button>
         </div>
       </div>
-      <div class="bk" onclick="alert('নমুনা বই: খুব শীঘ্রই ডাটাবেজ থেকে হাজারো ইসলামিক ও অন্যান্য বই যুক্ত হবে!')">
-        <div class="cv" style="background:#a97a1c">জি</div>
-        <div>
-          <b>জীবন যেখানে যেমন</b>
-          <span class="note">উপন্যাস · সাধারণ বই</span>
-        </div>
+      <article id="readerArticle"></article>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <button class="ghost" id="prevChBtn" onclick="navChapter(-1)">‹ পূর্ববর্তী অধ্যায়</button>
+        <span class="note" id="chIndicator"></span>
+        <button class="btn" id="nextChBtn" onclick="navChapter(1)">পরবর্তী অধ্যায় ›</button>
       </div>
     </div>
   </section>
 
-  <!-- কমিউনিটি (ফেসবুক স্টাইল পোস্ট) সেকশন -->
-  <section id="t-com" hidden>
-    <div class="box">
-      <textarea id="postText" placeholder="আপনার মনে কী আছে? ইসলামিক আলোচনা, বই নিয়ে মতামত বা প্রশ্ন লিখুন..."></textarea>
-      <button class="btn" style="margin-top:8px" onclick="createPost()">পোস্ট করুন</button>
-    </div>
-    <div id="feedList">
-      <div class="post">
-        <span class="who">আব্দুল্লাহ সাঈদ</span> <span class="when">১০ মিনিট আগে</span>
-        <p>আলহামদুলিল্লাহ, বইফুল অ্যাপটি এখন অনেক সুন্দর লাগছে। আশা করি এখানে আমরা ইসলামিক ও শিক্ষণীয় অনেক ভালো বই পড়তে পারব। সকলের সহযোগিতা কামনা করছি!</p>
-        <div style="margin-top:8px; display:flex; gap:12px;">
-          <button class="ghost" style="padding:4px 10px; font-size:13px;">❤️ ১2 লাইক</button>
-          <button class="ghost" style="padding:4px 10px; font-size:13px;">💬 ৩ কমেন্ট</button>
-        </div>
+  <!-- ২. মাসআলা-মাসায়েল কর্নার -->
+  <section id="tab-masala" hidden>
+    <div class="card">
+      <h3 style="margin:0 0 6px; color:var(--ac);">🕌 মাসআলা-মাসায়েল জিজ্ঞাসা</h3>
+      <p class="note" style="margin:0 0 10px;">দৈনন্দিন জীবনের জরুরি শরয়ী মাসআলা খুঁজুন অথবা আপনার প্রশ্ন জমা দিন।</p>
+      <input type="text" id="masalaSearch" placeholder="মাসআলা খুঁজুন (যেমন: নামাজ, রোজা, যাকাত)..." oninput="renderMasalas()">
+      <div style="display:flex; gap:8px; margin-top:10px;">
+        <input type="text" id="newQuestion" placeholder="আপনার প্রশ্ন লিখুন..." style="margin:0;">
+        <button class="btn" onclick="askMasala()">প্রশ্ন করুন</button>
       </div>
+    </div>
+    <div id="masalaList"></div>
+  </section>
+
+  <!-- ৩. কমিউনিটি (ফেসবুক স্টাইল ফিড) -->
+  <section id="tab-feed" hidden>
+    <div class="card">
+      <textarea id="postInput" rows="3" placeholder="কিছু লিখুন: ইসলামিক আলোচনা, বইয়ের প্রিয় উক্তি বা অনুভূতি..."></textarea>
+      <input type="text" id="quoteInput" placeholder="ঐচ্ছিক: বইয়ের কোনো বিশেষ উদ্ধৃতি (Quote) থাকলে দিন...">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+        <span class="note" id="postingAs">অতিথি হিসেবে পোস্ট করছেন</span>
+        <button class="btn" onclick="submitPost()">পোস্ট করুন</button>
+      </div>
+    </div>
+    <div id="feedContainer"></div>
+  </section>
+
+  <!-- ৪. প্রোফাইল ও অ্যাডমিন প্যানেল -->
+  <section id="tab-profile" hidden>
+    <div class="card" style="text-align:center;">
+      <div class="avatar" id="profAvatar" style="width:64px; height:64px; font-size:26px; margin:0 auto 10px;">পা</div>
+      <h2 id="profName" style="margin:0;">অতিথি পাঠক</h2>
+      <p class="note" id="profEmail" style="margin:4px 0 12px;">লগইন করলে আপনার সব তথ্য সংরক্ষিত থাকবে</p>
+      <div style="display:flex; justify-content:center; gap:20px; border-top:1px solid var(--ln); padding-top:12px;">
+        <div><b id="statBooks">০</b><br><span class="note">বুকমার্ক বই</span></div>
+        <div><b id="statPosts">০</b><br><span class="note">আমার পোস্ট</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <button class="btn sm" id="profLoginBtn" onclick="openAuth()">লগইন / রেজিস্ট্রেশন</button>
+        <button class="ghost sm rd" id="profLogoutBtn" onclick="logoutUser()" hidden>লগআউট করুন</button>
+      </div>
+    </div>
+
+    <!-- অ্যাডমিন কন্ট্রোল প্যানেল -->
+    <div class="card" id="adminPanel">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="margin:0; color:var(--gd);">⚙️ অ্যাডমিন কন্ট্রোল প্যানেল</h3>
+        <span class="badge-gd">অ্যাডমিন মোড</span>
+      </div>
+      <p class="note">এখান থেকে নতুন বই ও মাসআলা প্রকাশ করতে পারবেন।</p>
+
+      <hr style="border:0; border-top:1px solid var(--ln); margin:14px 0;">
+      <b>📚 নতুন বই প্রকাশ করুন</b>
+      <input type="text" id="admBookTitle" placeholder="বইয়ের নাম">
+      <input type="text" id="admBookAuthor" placeholder="লেখকের নাম">
+      <select id="admBookCat">
+        <option value="ইসলামিক">ইসলামিক</option>
+        <option value="ফিকহ ও মাসআলা">ফিকহ ও মাসআলা</option>
+        <option value="সিরাত ও ইতিহাস">সিরাত ও ইতিহাস</option>
+        <option value="সাহিত্য ও উপন্যাস">সাহিত্য ও উপন্যাস</option>
+      </select>
+      <textarea id="admBookContent" rows="5" placeholder="## প্রথম অধ্যায়&#10;এখানে অধ্যায়ের বিস্তারিত লেখা দিন...&#10;&#10;## দ্বিতীয় অধ্যায়&#10;পরবর্তী অধ্যায়ের লেখা..."></textarea>
+      <button class="btn" style="width:100%; margin-top:10px;" onclick="publishBook()">বই প্রকাশ করুন</button>
+
+      <hr style="border:0; border-top:1px solid var(--ln); margin:18px 0;">
+      <b>🕌 নতুন মাসআলা যুক্ত করুন</b>
+      <input type="text" id="admMasalaQ" placeholder="প্রশ্ন বা মাসআলার শিরোনাম">
+      <textarea id="admMasalaA" rows="3" placeholder="বিস্তারিত শরয়ী সমাধান ও উত্তর..."></textarea>
+      <input type="text" id="admMasalaRef" placeholder="তথ্যসূত্র (যেমন: সহীহ বুখারী, ফাতাওয়ায়ে শামী)">
+      <button class="btn" style="width:100%; margin-top:10px;" onclick="publishMasala()">মাসআলা যুক্ত করুন</button>
     </div>
   </section>
 
-  <!-- অ্যাডমিন সেকশন -->
-  <section id="t-adm" hidden>
-    <div class="box">
-      <b>নতুন বই বা পোস্ট যোগ করুন (অ্যাডমিন প্যানেল)</b>
-      <input type="text" id="bookTitle" placeholder="বইয়ের নাম">
-      <input type="text" id="bookAuthor" placeholder="লেখকের নাম">
-      <textarea id="bookContent" placeholder="অধ্যায় বা বইয়ের বিবরণ লিখুন..."></textarea>
-      <button class="btn" style="margin-top:8px" onclick="addBook()">বই প্রকাশ করুন</button>
-    </div>
-  </section>
 </div>
 
-<!-- নিচের নেভিগেশন বার -->
+<!-- লগইন / রেজিস্ট্রেশন পপআপ মোডাল -->
+<div class="modal-bg" id="authModal" hidden>
+  <div class="modal">
+    <h3 style="margin-top:0; color:var(--ac);">বইফুল অ্যাকাউন্ট</h3>
+    <p class="note">পোস্ট, কমেন্ট ও বই সেভ করতে আপনার নাম ও ইমেইল দিন। (অ্যাডমিন হতে ইমেইলে 'admin' লিখুন বা নিচের চেকবক্সে টিক দিন)</p>
+    <input type="text" id="authName" placeholder="আপনার পূর্ণ নাম (যেমন: আব্দুল্লাহ সাঈদ)">
+    <input type="email" id="authEmail" placeholder="ইমেইল ঠিকানা">
+    <label style="display:flex; align-items:center; gap:8px; margin-top:10px; font-size:14px;">
+      <input type="checkbox" id="authIsAdmin" style="width:auto; margin:0;"> অ্যাডমিন হিসেবে প্রবেশ করুন
+    </label>
+    <div style="display:flex; gap:8px; margin-top:16px;">
+      <button class="ghost" style="flex:1;" onclick="closeAuth()">বাতিল</button>
+      <button class="btn" style="flex:1;" onclick="saveAuth()">প্রবেশ করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- বটম নেভিগেশন বার -->
 <nav>
-  <button data-tab="books" class="on" onclick="switchTab('books')">📚 বইসমূহ</button>
-  <button data-tab="com" onclick="switchTab('com')">👥 কমিউনিটি</button>
-  <button data-tab="adm" onclick="switchTab('adm')">⚙️ অ্যাডমিন</button>
+  <button class="on" data-t="books" onclick="switchTab('books', this)">
+    <span class="ico">📚</span><span>লাইব্রেরি</span>
+  </button>
+  <button data-t="masala" onclick="switchTab('masala', this)">
+    <span class="ico">🕌</span><span>মাসআলা</span>
+  </button>
+  <button data-t="feed" onclick="switchTab('feed', this)">
+    <span class="ico">💬</span><span>কমিউনিটি</span>
+  </button>
+  <button data-t="profile" onclick="switchTab('profile', this)">
+    <span class="ico">👤</span><span>প্রোফাইল</span>
+  </button>
 </nav>
 
 <script>
-function switchTab(tab){
-  ['books','com','adm'].forEach(x => {
-    document.getElementById('t-' + x).hidden = (x !== tab);
-  });
-  document.querySelectorAll('nav button').forEach(b => {
-    b.classList.toggle('on', b.dataset.tab === tab);
-  });
+// প্রাথমিক নমুনা ডেটা (Initial Data)
+const DEFAULT_BOOKS = [
+  {
+    id: 'b1',
+    title: 'রমজানের শিক্ষা ও আত্মশুদ্ধি',
+    author: 'ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর (রহ.)',
+    cat: 'ইসলামিক',
+    hue: 162,
+    chapters: [
+      { t: 'সিয়ামের মূল উদ্দেশ্য: তাকওয়া', p: ['يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ', 'হে ঈমানদারগণ! তোমাদের ওপর রোজা ফরজ করা হয়েছে, যেমন ফরজ করা হয়েছিল তোমাদের পূর্ববর্তীদের ওপর, যাতে তোমরা তাকওয়া (আল্লাহভীতি) অর্জন করতে পারো। (সূরা বাকারা: ১৮৩)', 'রমজান কেবল উপবাস থাকার নাম নয়, বরং এটি আমাদের অন্তরকে পবিত্র করার এবং আল্লাহর নৈকট্য লাভের সর্বোত্তম প্রশিক্ষণ।'] },
+      { t: 'দৈনন্দিন আমল ও কুরআন তিলাওয়াত', p: ['রমজান মাস হলো কুরআন নাজিলের মাস। তাই এই মাসে অর্থসহ কুরআন অধ্যয়ন এবং রাতে কিয়ামুল লাইল বা তারাবীহ নামাজে মনোযোগী হওয়া প্রতিটি মুমিনের কর্তব্য।'] }
+    ]
+  },
+  {
+    id: 'b2',
+    title: 'নবীজির (সা.) দৈনন্দিন সুন্নাহ',
+    author: 'মাওলানা তারিক জামিল',
+    cat: 'সিরাত ও ইতিহাস',
+    hue: 38,
+    chapters: [
+      { t: 'ঘুম থেকে ওঠা ও সকালের আমল', p: ['রাসূলুল্লাহ (সা.) ফজরের আগে তাহাজ্জুদের জন্য উঠতেন এবং মিসওয়াক করতেন। ঘুম থেকে উঠে তিনি আল্লাহর প্রশংসা সূচক দোয়া পাঠ করতেন।'] }
+    ]
+  },
+  {
+    id: 'b3',
+    title: 'সুখের ছায়ায়',
+    author: 'আব্দুল্লাহ সাঈদ',
+    cat: 'সাহিত্য ও উপন্যাস',
+    hue: 200,
+    chapters: [
+      { t: 'প্রথম অধ্যায়: ভোরের আলো', p: ['গ্রামের মেঠোপথ ধরে হাঁটতে হাঁটতে রাফি ভাবছিল জীবনের প্রকৃত প্রশান্তি কোথায়। শহরের কোলাহল ছেড়ে এই শান্ত প্রকৃতি যেন তাকে নতুন করে ভাবতে শেখাচ্ছে।'] }
+    ]
+  }
+];
+
+const DEFAULT_MASALAS = [
+  {
+    id: 'm1',
+    q: 'অজু অবস্থায় নখ বা চুল কাটলে কি অজু ভেঙে যায়?',
+    a: 'না, অজু অবস্থায় নখ বা চুল কাটলে অজু ভাঙে না। তবে নখ কাটার পর আঙুলের মাথা ধুয়ে নেওয়া উত্তম।',
+    ref: 'ফাতাওয়ায়ে হিন্দিয়া: ১/১১'
+  },
+  {
+    id: 'm2',
+    q: 'ভুলবশত কিছু খেয়ে ফেললে কি রোজা ভেঙে যাবে?',
+    a: 'না, রোজা অবস্থায় ভুলবশত কিছু খেয়ে ফেললে বা পান করলে রোজা ভাঙে না। মনে পড়ার সাথে সাথেই খাওয়া বন্ধ করে দিতে হবে এবং রোজা পূর্ণ করতে হবে।',
+    ref: 'সহীহ বুখারী: ১৯৩৩'
+  }
+];
+
+const DEFAULT_POSTS = [
+  {
+    id: 'p1',
+    author: 'আব্দুল্লাহ সাঈদ',
+    time: '১৫ মিনিট আগে',
+    text: 'আলহামদুলিল্লাহ! বইফুল প্ল্যাটফর্মে এখন আমরা সবাই একসাথে বই পড়তে পারব এবং জরুরি মাসআলা-মাসায়েল নিয়ে আলোচনা করতে পারব। আপনাদের প্রিয় কোনো বইয়ের নাম কমেন্টে জানান।',
+    quote: '“যে ব্যক্তি জ্ঞানের সন্ধানে পথ চলে, আল্লাহ তার জন্য জান্নাতের পথ সহজ করে দেন।” — সহীহ মুসলিম',
+    likes: 14,
+    liked: false,
+    comments: [
+      { author: 'তানভীর আহমেদ', text: 'মাশাআল্লাহ, অসাধারণ একটি উদ্যোগ! ডিজাইনটা খুব সুন্দর হয়েছে।' }
+    ]
+  }
+];
+
+// অ্যাপ স্টেট (LocalStorage থেকে লোড)
+let state = {
+  user: JSON.parse(localStorage.getItem('bp_user')) || null,
+  books: JSON.parse(localStorage.getItem('bp_books')) || DEFAULT_BOOKS,
+  masalas: JSON.parse(localStorage.getItem('bp_masalas')) || DEFAULT_MASALAS,
+  posts: JSON.parse(localStorage.getItem('bp_posts')) || DEFAULT_POSTS,
+  bookmarks: JSON.parse(localStorage.getItem('bp_bookmarks')) || [],
+  currentCat: 'সব',
+  activeBook: null,
+  activeCh: 0,
+  fontSize: 18
+};
+
+function saveData() {
+  localStorage.setItem('bp_books', JSON.stringify(state.books));
+  localStorage.setItem('bp_masalas', JSON.stringify(state.masalas));
+  localStorage.setItem('bp_posts', JSON.stringify(state.posts));
+  localStorage.setItem('bp_bookmarks', JSON.stringify(state.bookmarks));
 }
 
-function createPost() {
-  const text = document.getElementById('postText').value.trim();
-  if(!text) return alert('কিছু একটা লিখুন!');
-  alert('আপনার পোস্টটি সফলভাবে সাবমিট হয়েছে!');
-  document.getElementById('postText').value = '';
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.hidden = false;
+  setTimeout(() => el.hidden = true, 2600);
 }
 
-function addBook() {
-  const title = document.getElementById('bookTitle').value.trim();
-  if(!title) return alert('বইয়ের নাম দিন!');
-  alert('বইটি সফলভাবে প্রকাশিত হয়েছে!');
-  document.getElementById('bookTitle').value = '';
-  document.getElementById('bookAuthor').value = '';
-  document.getElementById('bookContent').value = '';
+function toggleTheme() {
+  const root = document.documentElement;
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  toast(next === 'dark' ? 'ডার্ক মোড চালু হয়েছে' : 'লাইট মোড চালু হয়েছে');
 }
+
+function switchTab(tab, btn) {
+  ['books', 'masala', 'feed', 'profile'].forEach(t => {
+    document.getElementById('tab-' + t).hidden = (t !== tab);
+  });
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  window.scrollTo(0, 0);
+}
+
+/* ---------- লাইব্রেরি ও রিডার ---------- */
+function setCat(cat, el) {
+  state.currentCat = cat;
+  document.querySelectorAll('#catChips .chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  renderBooks();
+}
+
+function renderBooks() {
+  const q = document.getElementById('bookSearch').value.toLowerCase();
+  const list = state.books.filter(b => {
+    const matchCat = state.currentCat === 'সব' || b.cat === state.currentCat;
+    const matchQ = b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+
+  document.getElementById('booksContainer').innerHTML = list.length ? list.map(b => `
+    <div class="book-item" onclick="openBook('${b.id}')">
+      <div class="cover" style="background:hsl(${b.hue || 160}, 48%, 28%)">${b.title[0]}</div>
+      <div class="book-meta">
+        <span class="cat-pill">${b.cat}</span>
+        <h3>${b.title}</h3>
+        <span class="note">✍️ ${b.author} · ${b.chapters.length}টি অধ্যায়</span>
+      </div>
+    </div>
+  `).join('') : '<p class="note" style="text-align:center; padding:20px;">কোনো বই পাওয়া যায়নি।</p>';
+}
+
+function openBook(id) {
+  state.activeBook = state.books.find(b => b.id === id);
+  state.activeCh = 0;
+  document.getElementById('libraryView').hidden = true;
+  document.getElementById('readerView').hidden = false;
+  renderChapter();
+}
+
+function closeReader() {
+  document.getElementById('readerView').hidden = true;
+  document.getElementById('libraryView').hidden = false;
+}
+
+function renderChapter() {
+  const b = state.activeBook;
+  const ch = b.chapters[state.activeCh];
+  const isAr = s => /[\u0600-\u06FF]/.test(s) && s.length < 250;
+
+  document.getElementById('readerArticle').innerHTML = `
+    <h2>${ch.t}</h2>
+    ${ch.p.map(para => `<p class="${isAr(para) ? 'ar' : ''}">${para}</p>`).join('')}
+  `;
+  document.getElementById('chIndicator').textContent = `অধ্যায় ${state.activeCh + 1} / ${b.chapters.length}`;
+  document.getElementById('prevChBtn').disabled = state.activeCh === 0;
+  document.getElementById('nextChBtn').disabled = state.activeCh === b.chapters.length - 1;
+  
+  const isBm = state.bookmarks.includes(b.id);
+  document.getElementById('bmBtn').textContent = isBm ? '✅ সেভ করা' : '🔖 সেভ';
+  window.scrollTo(0, 0);
+}
+
+function navChapter(dir) {
+  state.activeCh += dir;
+  renderChapter();
+}
+
+function changeFont(delta) {
+  state.fontSize = Math.min(26, Math.max(14, state.fontSize + delta));
+  document.documentElement.style.setProperty('--fs', state.fontSize + 'px');
+}
+
+function toggleBookmark() {
+  const id = state.activeBook.id;
+  if (state.bookmarks.includes(id)) {
+    state.bookmarks = state.bookmarks.filter(x => x !== id);
+    toast('বুকমার্ক থেকে সরানো হয়েছে');
+  } else {
+    state.bookmarks.push(id);
+    toast('বইটি বুকমার্ক করা হয়েছে');
+  }
+  saveData();
+  renderChapter();
+  updateProfileUI();
+}
+
+/* ---------- মাসআলা-মাসায়েল ---------- */
+function renderMasalas() {
+  const q = document.getElementById('masalaSearch').value.toLowerCase();
+  const list = state.masalas.filter(m => m.q.toLowerCase().includes(q) || m.a.toLowerCase().includes(q));
+  document.getElementById('masalaList').innerHTML = list.map(m => `
+    <div class="card">
+      <p class="masala-q">প্রশ্ন: ${m.q}</p>
+      <p class="masala-a"><b>উত্তর:</b> ${m.a}</p>
+      ${m.ref ? `<span class="ref-tag">📚 সূত্র: ${m.ref}</span>` : ''}
+    </div>
+  `).join('');
+}
+
+function askMasala() {
+  const q = document.getElementById('newQuestion').value.trim();
+  if (!q) return toast('অনুগ্রহ করে আপনার প্রশ্নটি লিখুন');
+  document.getElementById('newQuestion').value = '';
+  toast('আপনার প্রশ্নটি আলেম ও অ্যাডমিন প্যানেলে পাঠানো হয়েছে!');
+}
+
+/* ---------- কমিউনিটি ফিড (ফেসবুক স্টাইল) ---------- */
+function renderFeed() {
+  document.getElementById('feedContainer').innerHTML = state.posts.map(p => `
+    <div class="card">
+      <div class="post-head">
+        <div class="user-info">
+          <div class="avatar">${p.author[0]}</div>
+          <div>
+            <b>${p.author}</b><br>
+            <span class="note">${p.time}</span>
+          </div>
+        </div>
+        ${state.user && state.user.isAdmin ? `<button class="ghost sm rd" onclick="deletePost('${p.id}')">মুছুন</button>` : ''}
+      </div>
+      <div class="post-body">${p.text}</div>
+      ${p.quote ? `<div class="quote-box">${p.quote}</div>` : ''}
+      <div class="post-actions">
+        <button class="${p.liked ? 'liked' : ''}" onclick="toggleLike('${p.id}')">
+          ${p.liked ? '❤️' : '🤍'} লাইক (${p.likes})
+        </button>
+        <button onclick="document.getElementById('cin-${p.id}').focus()">
+          💬 কমেন্ট (${p.comments.length})
+        </button>
+        <button onclick="sharePost('${p.id}')">🔗 শেয়ার</button>
+      </div>
+      <div class="comments-area">
+        ${p.comments.map(c => `<div class="comment-item"><b>${c.author}:</b> ${c.text}</div>`).join('')}
+        <div class="comment-form">
+          <input type="text" id="cin-${p.id}" placeholder="একটি সুন্দর মন্তব্য লিখুন...">
+          <button class="btn sm" onclick="addComment('${p.id}')">পাঠান</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function submitPost() {
+  const text = document.getElementById('postInput').value.trim();
+  const quote = document.getElementById('quoteInput').value.trim();
+  if (!text) return toast('পোস্ট করার জন্য কিছু লিখুন!');
+
+  const authorName = state.user ? state.user.name : 'অতিথি পাঠক';
+  state.posts.unshift({
+    id: 'p' + Date.now(),
+    author: authorName,
+    time: 'এইমাত্র',
+    text, quote,
+    likes: 0,
+    liked: false,
+    comments: []
+  });
+
+  document.getElementById('postInput').value = '';
+  document.getElementById('quoteInput').value = '';
+  saveData();
+  renderFeed();
+  updateProfileUI();
+  toast('আপনার পোস্টটি প্রকাশিত হয়েছে!');
+}
+
+function toggleLike(id) {
+  const p = state.posts.find(x => x.id === id);
+  p.liked = !p.liked;
+  p.likes += p.liked ? 1 : -1;
+  saveData();
+  renderFeed();
+}
+
+function addComment(id) {
+  const inp = document.getElementById('cin-' + id);
+  const text = inp.value.trim();
+  if (!text) return;
+  const p = state.posts.find(x => x.id === id);
+  p.comments.push({
+    author: state.user ? state.user.name : 'অতিথি পাঠক',
+    text
+  });
+  saveData();
+  renderFeed();
+  toast('মন্তব্য যুক্ত হয়েছে');
+}
+
+function sharePost(id) {
+  const p = state.posts.find(x => x.id === id);
+  if (navigator.share) {
+    navigator.share({ title: 'বইফুল কমিউনিটি', text: p.text, url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(p.text + ' — বইফুল অ্যাপ');
+    toast('পোস্টের লেখা কপি হয়েছে, এখন শেয়ার করুন!');
+  }
+}
+
+function deletePost(id) {
+  state.posts = state.posts.filter(x => x.id !== id);
+  saveData();
+  renderFeed();
+  toast('পোস্টটি মুছে ফেলা হয়েছে');
+}
+
+/* ---------- অ্যাডমিন প্রকাশনা ---------- */
+function publishBook() {
+  const title = document.getElementById('admBookTitle').value.trim();
+  const author = document.getElementById('admBookAuthor').value.trim() || 'অজানা লেখক';
+  const cat = document.getElementById('admBookCat').value;
+  const raw = document.getElementById('admBookContent').value.trim();
+
+  if (!title || !raw) return toast('বইয়ের নাম এবং অন্তত একটি অধ্যায়ের লেখা দিন!');
+
+  const chapters = [];
+  let cur = null;
+  raw.split('\n').forEach(line => {
+    const l = line.trim();
+    if (l.startsWith('##')) {
+      cur = { t: l.replace(/^##\s*/, '') || 'অধ্যায়', p: [] };
+      chapters.push(cur);
+    } else if (l) {
+      if (!cur) { cur = { t: 'প্রথম অধ্যায়', p: [] }; chapters.push(cur); }
+      cur.p.push(l);
+    }
+  });
+
+  state.books.unshift({
+    id: 'b' + Date.now(),
+    title, author, cat,
+    hue: Math.floor(Math.random() * 360),
+    chapters
+  });
+
+  ['admBookTitle', 'admBookAuthor', 'admBookContent'].forEach(i => document.getElementById(i).value = '');
+  saveData();
+  renderBooks();
+  toast('নতুন বই সফলভাবে লাইব্রেরিতে যুক্ত হয়েছে!');
+}
+
+function publishMasala() {
+  const q = document.getElementById('admMasalaQ').value.trim();
+  const a = document.getElementById('admMasalaA').value.trim();
+  const ref = document.getElementById('admMasalaRef').value.trim();
+
+  if (!q || !a) return toast('প্রশ্ন এবং উত্তর উভয়ই লিখুন!');
+
+  state.masalas.unshift({ id: 'm' + Date.now(), q, a, ref });
+  ['admMasalaQ', 'admMasalaA', 'admMasalaRef'].forEach(i => document.getElementById(i).value = '');
+  saveData();
+  renderMasalas();
+  toast('নতুন মাসআলা যুক্ত হয়েছে!');
+}
+
+/* ---------- ইউজার অ্যাকাউন্ট ও প্রোফাইল ---------- */
+function openAuth() { document.getElementById('authModal').hidden = false; }
+function closeAuth() { document.getElementById('authModal').hidden = true; }
+
+function saveAuth() {
+  const name = document.getElementById('authName').value.trim();
+  const email = document.getElementById('authEmail').value.trim();
+  const isAdmin = document.getElementById('authIsAdmin').checked || email.toLowerCase().includes('admin');
+
+  if (!name || !email) return toast('নাম এবং ইমেইল ঠিকানা দিন!');
+
+  state.user = { name, email, isAdmin };
+  localStorage.setItem('bp_user', JSON.stringify(state.user));
+  closeAuth();
+  updateProfileUI();
+  renderFeed();
+  toast(`স্বাগতম, ${name}!`);
+}
+
+function logoutUser() {
+  state.user = null;
+  localStorage.removeItem('bp_user');
+  updateProfileUI();
+  renderFeed();
+  toast('সফলভাবে লগআউট হয়েছে');
+}
+
+function updateProfileUI() {
+  const u = state.user;
+  document.getElementById('authBtn').textContent = u ? u.name.split(' ')[0] : 'লগইন';
+  document.getElementById('roleBadge').textContent = (u && u.isAdmin) ? 'অ্যাডমিন' : 'পাঠক';
+  document.getElementById('postingAs').textContent = u ? `পোস্ট করছেন: ${u.name}` : 'অতিথি হিসেবে পোস্ট করছেন';
+
+  document.getElementById('profName').textContent = u ? u.name : 'অতিথি পাঠক';
+  document.getElementById('profEmail').textContent = u ? u.email : 'লগইন করলে আপনার সব তথ্য সংরক্ষিত থাকবে';
+  document.getElementById('profAvatar').textContent = u ? u.name[0] : 'পা';
+  document.getElementById('profLoginBtn').hidden = !!u;
+  document.getElementById('profLogoutBtn').hidden = !u;
+
+  document.getElementById('statBooks').textContent = state.bookmarks.length;
+  document.getElementById('statPosts').textContent = u ? state.posts.filter(p => p.author === u.name).length : 0;
+}
+
+// অ্যাপ চালু করা
+renderBooks();
+renderMasalas();
+renderFeed();
+updateProfileUI();
 </script>
 </body>
 </html>
