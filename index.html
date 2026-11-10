@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5c4d">
+<title>বইফুল</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Hind+Siliguri:wght@400;500;600&family=Noto+Serif+Bengali:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f6f4;--sf:#fff;--ink:#14302b;--mu:#5b716b;--ln:#d5e0dc;--ac:#0f5c4d;--on:#fff;--gd:#a97a1c;--rd:#b3261e;--fs:19px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1a18;--sf:#142622;--ink:#dce8e4;--mu:#8fa7a1;--ln:#26403b;--ac:#5fc3a8;--on:#06201a;--gd:#d8ae55;--rd:#ff8a80;color-scheme:dark}}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 "Hind Siliguri",system-ui,sans-serif;min-height:100vh}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;min-height:44px;padding:0 14px;border-radius:10px}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px}
+header{padding:22px 0 6px;display:flex;align-items:center;gap:10px}
+h1{font:600 28px/1.3 "Noto Serif Bengali",serif;margin:0;flex:1}
+.tag{font-size:13px;border:1px solid var(--gd);color:var(--gd);border-radius:20px;padding:0 10px}
+.btn{background:var(--ac);color:var(--on);font-weight:500}
+.ghost{background:var(--sf);border:1px solid var(--ln)}
+.sm{min-height:36px;font-size:14px;padding:0 10px;color:var(--mu)}.sm.rd{color:var(--rd)}
+input[type=text],input[type=email],input[type=password],textarea{width:100%;border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:12px;padding:10px 12px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:14px;margin:12px 0}
+.grid{display:grid;gap:8px}
+.post{border-bottom:1px solid var(--ln);padding:16px 0}
+.who{font-weight:600}.when{color:var(--mu);font-size:13px}
+.post p{margin:6px 0 4px;white-space:pre-wrap;word-break:break-word}
+.cm{margin:8px 0 0 14px;padding-left:12px;border-left:2px solid var(--ln);font-size:15px}.cm p{margin:0}
+.cin{display:flex;gap:8px;margin:8px 0 0 14px}.cin input{flex:1;min-width:0}
+.row{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.note{color:var(--mu);font-size:14px}
+.msg{color:var(--gd);min-height:1.4em;font-size:14px}
+.bk{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--ln);cursor:pointer}
+.cv{flex:none;width:52px;height:72px;border-radius:4px 8px 8px 4px;display:grid;place-items:center;font:700 28px Amiri,serif;color:#fff;border-left:6px solid rgba(0,0,0,.25)}
+.bk b{font:600 17px/1.4 "Noto Serif Bengali",serif;display:block}
+article{font:400 var(--fs)/1.95 "Noto Serif Bengali",serif;padding:16px 0}
+article h2{font:600 1.3em/1.5 "Noto Serif Bengali",serif;margin:0 0 .7em}
+article p.ar{font:400 1.5em/2.2 Amiri,serif;direction:rtl;text-align:center;color:var(--gd)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--ln);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:20}
+nav button{flex:1;max-width:210px;border-radius:0;color:var(--mu)}
+nav button.on{color:var(--ac);font-weight:600;box-shadow:inset 0 3px 0 var(--ac)}
+h2.sec{font:600 16px "Hind Siliguri",sans-serif;color:var(--mu);margin:22px 0 4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>বইফুল</h1><span class="tag" id="role" hidden>অ্যাডমিন</span><button class="sm" id="out" hidden>লগআউট</button></header>
+  <div class="msg" id="msg" role="status"></div>
+
+  <section id="t-books">
+    <div id="books"></div>
+    <div id="reader" hidden>
+      <button class="ghost" id="rback">← বইয়ের তালিকা</button>
+      <article id="art"></article>
+      <div class="row"><button class="ghost" id="rp">‹ আগে</button><button class="btn" id="rn">পরে ›</button><span class="note" id="rpos"></span></div>
+    </div>
+  </section>
+
+  <section id="t-com" hidden>
+    <div id="auth" class="box" hidden>
+      <b>কমিউনিটিতে যোগ দিন</b>
+      <div class="grid" style="margin-top:10px">
+        <input type="text" id="an" placeholder="আপনার নাম (নতুন একাউন্টের জন্য)" autocomplete="name">
+        <input type="email" id="ae" placeholder="ইমেইল" autocomplete="email">
+        <input type="password" id="ap" placeholder="পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)" autocomplete="current-password">
+        <div class="row"><button class="btn" id="login">লগইন</button><button class="ghost" id="signup">নতুন একাউন্ট</button></div>
+        <button class="ghost" id="goog">Google দিয়ে লগইন</button>
+      </div>
+    </div>
+    <div id="comm" hidden>
+      <div class="box">
+        <textarea id="ptxt" placeholder="কিছু লিখুন: একটি প্রশ্ন, উপকারী কথা বা বই নিয়ে মতামত" maxlength="1000"></textarea>
+        <div class="row" style="margin-top:8px"><button class="btn" id="psend">পোস্ট করুন</button><span class="note">নিজের লেখা নিজে মুছতে পারবেন।</span></div>
+      </div>
+      <div id="feed"></div>
+    </div>
+  </section>
+
+  <section id="t-adm" hidden>
+    <div class="box">
+      <b>নতুন বই যোগ করুন</b>
+      <div class="grid" style="margin-top:8px">
+        <input type="text" id="bt" placeholder="বইয়ের নাম">
+        <input type="text" id="ba" placeholder="লেখক">
+        <textarea id="bx" style="min-height:160px" placeholder="## অধ্যায়ের নাম&#10;অনুচ্ছেদ...&#10;&#10;## পরের অধ্যায়&#10;অনুচ্ছেদ..."></textarea>
+        <button class="btn" id="badd">বই প্রকাশ করুন</button>
+      </div>
+    </div>
+    <h2 class="sec">রিপোর্ট</h2><div id="reps"></div>
+    <h2 class="sec">নিষিদ্ধ সদস্য</h2><div id="bans"></div>
+    <h2 class="sec">প্রকাশিত বই</h2><div id="blist"></div>
+  </section>
+</div>
+<nav>
+  <button data-tab="books" class="on">বই</button>
+  <button data-tab="com">কমিউনিটি</button>
+  <button data-tab="adm" id="admtab" hidden>অ্যাডমিন</button>
+</nav>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,updateProfile,GoogleAuthProvider,signInWithPopup,signOut} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {getFirestore,collection,doc,getDoc,setDoc,addDoc,deleteDoc,onSnapshot,query,orderBy,limit} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+/* ===== আপনার Firebase কনফিগ ===== */
+const firebaseConfig={
+  apiKey:"AIzaSyAeYpNk4e92cpuXekX8VuVxQgwJjhkstTM",
+  authDomain:"boiphul.firebaseapp.com",
+  projectId:"boiphul",
+  storageBucket:"boiphul.firebasestorage.app",
+  messagingSenderId:"655908746490",
+  appId:"1:655908746490:web:c332f07423087ca0a70543"
+};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const bn=n=>Number(n).toLocaleString('bn-BD');
+const ago=t=>{const m=Math.floor((Date.now()-t)/60000);return m<1?'এইমাত্র':m<60?bn(m)+' মিনিট আগে':m<1440?bn(Math.floor(m/60))+' ঘণ্টা আগে':bn(Math.floor(m/1440))+' দিন আগে'};
+const ERR={'auth/invalid-credential':'ইমেইল বা পাসওয়ার্ড ভুল।','auth/invalid-email':'ইমেইলের ঠিকানা সঠিক নয়।','auth/email-already-in-use':'এই ইমেইলে আগেই একাউন্ট আছে। লগইন করুন।','auth/weak-password':'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন।','auth/popup-closed-by-user':'Google লগইন বাতিল হয়েছে।','auth/unauthorized-domain':'এই ওয়েব ঠিকানা Firebase-এর Authorized domains-এ যোগ করা হয়নি।','auth/network-request-failed':'ইন্টারনেট সংযোগ যাচাই করুন।','auth/api-key-not-valid.-please-pass-a-valid-api-key.':'Firebase কনফিগের apiKey ভুল আছে।'};
+const fail=e=>{const c=e.code||'';$('#msg').textContent=ERR[c]||(c.includes('permission')?'এই কাজের অনুমতি আপনার নেই (আপনি নিষিদ্ধ হতে পারেন)।':'কাজটি হয়নি। আবার চেষ্টা করুন। ('+c+')');console.error(e)};
+const ok=m=>$('#msg').textContent=m||'';
+
+let me=null,admin=false,books={},posts=[],cms=[],reps=[],bans=[],subs=[],rd=null,tab='books';
+
+function setTab(t){tab=t;['books','com','adm'].forEach(x=>$('#t-'+x).hidden=x!==t);document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));ok('')}
+
+/* ---------- বই ---------- */
+function renderBooks(){
+  const e=Object.entries(books).sort((a,b)=>(b[1].t||0)-(a[1].t||0));
+  $('#books').innerHTML=e.length?e.map(([id,x])=>`<div class="bk" data-open="${esc(id)}" role="button" tabindex="0"><div class="cv" style="background:hsl(${x.hue||165},45%,28%)">${esc([...x.title][0])}</div><div><b>${esc(x.title)}</b><span class="note">${esc(x.author||'')} · ${bn((x.chapters||[]).length)}টি অধ্যায়</span></div></div>`).join(''):'<p class="note">এখনো কোনো বই প্রকাশ হয়নি। অ্যাডমিন বই যোগ করলে এখানে দেখা যাবে।</p>';
+}
+const isAr=s=>{const a=(s.match(/[\u0600-\u06FF]/g)||[]).length;return a>0&&a/s.replace(/\s/g,'').length>.5};
+function drawReader(keep){
+  const b=books[rd.id];if(!b){rd=null;$('#reader').hidden=true;$('#books').hidden=false;return}
+  const c=b.chapters[rd.ch];
+  $('#art').innerHTML=`<h2>${esc(c.t)}</h2>`+c.p.map(p=>`<p${isAr(p)?' class="ar" lang="ar"':''}>${esc(p)}</p>`).join('');
+  $('#rp').disabled=rd.ch===0;$('#rn').disabled=rd.ch===b.chapters.length-1;
+  $('#rpos').textContent=`${bn(rd.ch+1)} / ${bn(b.chapters.length)}`;if(!keep)window.scrollTo(0,0);
+}
+function openBook(id){rd={id,ch:0};$('#books').hidden=true;$('#reader').hidden=false;drawReader()}
+
+/* ---------- কমিউনিটি ---------- */
+function renderFeed(){
+  const keep={};document.querySelectorAll('[data-cin]').forEach(i=>{if(i.value)keep[i.dataset.cin]=i.value});
+  $('#feed').innerHTML=posts.length?posts.map(p=>{
+    const mine=me&&p.uid===me.uid,cs=cms.filter(c=>c.pid===p.id);
+    return `<div class="post"><span class="who">${esc(p.name||'সদস্য')}</span> <span class="when">${ago(p.t)}</span><p>${esc(p.text)}</p>
+    <div class="row">${mine||admin?`<button class="sm rd" data-delpost="${p.id}">মুছুন</button>`:''}${mine?'':`<button class="sm" data-rep="${p.id}">রিপোর্ট</button>`}</div>
+    ${cs.map(c=>`<div class="cm"><span class="who">${esc(c.name||'সদস্য')}</span> <span class="when">${ago(c.t)}</span>${(me&&c.uid===me.uid)||admin?` <button class="sm rd" data-delcm="${c.id}">মুছুন</button>`:''}<p>${esc(c.text)}</p></div>`).join('')}
+    <div class="cin"><input type="text" data-cin="${p.id}" placeholder="মন্তব্য লিখুন" maxlength="400"><button class="ghost" data-cmt="${p.id}">পাঠান</button></div></div>`}).join(''):'<p class="note">এখনো কোনো পোস্ট নেই। প্রথম পোস্টটি আপনিই করুন।</p>';
+  document.querySelectorAll('[data-cin]').forEach(i=>{if(keep[i.dataset.cin])i.value=keep[i.dataset.cin]});
+}
+
+/* ---------- অ্যাডমিন ---------- */
+function renderAdmin(){
+  if(!admin)return;
+  $('#reps').innerHTML=reps.length?reps.map(r=>`<div class="box"><span class="note">${esc(r.name||'সদস্য')} রিপোর্ট করেছেন · ${esc(r.pname||'')} এর লেখা</span><p style="margin:6px 0">${esc(r.ptext||'')}</p><div class="row"><button class="sm rd" data-delpost="${r.pid}" data-rid="${r.id}">পোস্ট মুছুন</button><button class="sm rd" data-ban="${r.puid}" data-bname="${esc(r.pname||'')}">লেখককে নিষিদ্ধ করুন</button><button class="sm" data-dismiss="${r.id}">বাদ দিন</button></div></div>`).join(''):'<p class="note">কোনো রিপোর্ট নেই।</p>';
+  $('#bans').innerHTML=bans.length?bans.map(b=>`<div class="row"><span>${esc(b.name||b.id)}</span><button class="sm" data-unban="${b.id}">নিষেধাজ্ঞা তুলুন</button></div>`).join(''):'<p class="note">কেউ নিষিদ্ধ নেই।</p>';
+  $('#blist').innerHTML=Object.entries(books).map(([id,b])=>`<div class="row"><span>${esc(b.title)}</span><button class="sm rd" data-delbook="${id}">মুছুন</button></div>`).join('')||'<p class="note">কোনো বই নেই।</p>';
+}
+function parseBook(t,title,author){
+  const chs=[];let c=null;
+  for(const raw of t.replace(/\r/g,'').split('\n')){const l=raw.trim();
+    if(/^##\s/.test(l)){c={t:l.slice(3).trim()||'অধ্যায়',p:[]};chs.push(c);continue}
+    if(!l)continue;if(!c){c={t:'শুরু',p:[]};chs.push(c)}c.p.push(l)}
+  return chs.length?{title,author,hue:150+Math.floor(Math.random()*60),chapters:chs,t:Date.now()}:null;
+}
+
+/* ---------- ইভেন্ট ---------- */
+const name=()=>(me&&(me.displayName||me.email.split('@')[0]))||'সদস্য';
+document.addEventListener('click',async e=>{
+  const t=e.target.closest('button,[data-open]');if(!t)return;const d=t.dataset;
+  try{
+    if(d.tab)return setTab(d.tab);
+    if(d.open)return openBook(d.open);
+    if(d.delpost){await deleteDoc(doc(db,'posts',d.delpost));if(d.rid)await deleteDoc(doc(db,'reports',d.rid));return}
+    if(d.delcm)return await deleteDoc(doc(db,'comments',d.delcm));
+    if(d.cmt){const i=document.querySelector(`[data-cin="${d.cmt}"]`),v=i.value.trim();if(!v)return;i.value='';
+      return await addDoc(collection(db,'comments'),{uid:me.uid,name:name(),pid:d.cmt,text:v,t:Date.now()})}
+    if(d.rep){const p=posts.find(x=>x.id===d.rep);await addDoc(collection(db,'reports'),{uid:me.uid,name:name(),pid:p.id,puid:p.uid,pname:p.name||'',ptext:p.text.slice(0,200),t:Date.now()});return ok('রিপোর্ট পাঠানো হয়েছে। অ্যাডমিন দেখবেন।')}
+    if(d.dismiss)return await deleteDoc(doc(db,'reports',d.dismiss));
+    if(d.ban){await setDoc(doc(db,'bans',d.ban),{name:d.bname,t:Date.now()});return ok('সদস্যকে নিষিদ্ধ করা হয়েছে।')}
+    if(d.unban)return await deleteDoc(doc(db,'bans',d.unban));
+    if(d.delbook)return await deleteDoc(doc(db,'books',d.delbook));
+  }catch(x){fail(x)}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.open)openBook(e.target.dataset.open)});
+$('#rback').onclick=()=>{rd=null;$('#reader').hidden=true;$('#books').hidden=false};
+$('#rp').onclick=()=>{rd.ch--;drawReader()};$('#rn').onclick=()=>{rd.ch++;drawReader()};
+$('#psend').onclick=async()=>{const v=$('#ptxt').value.trim();if(!v)return;try{await addDoc(collection(db,'posts'),{uid:me.uid,name:name(),text:v,t:Date.now()});$('#ptxt').value='';ok('')}catch(x){fail(x)}};
+$('#badd').onclick=async()=>{
+  const b=parseBook($('#bx').value,$('#bt').value.trim(),$('#ba').value.trim());
+  if(!b||!b.title)return ok('বইয়ের নাম ও অন্তত একটি অধ্যায়ের লেখা দিন।');
+  try{await addDoc(collection(db,'books'),b);['bt','ba','bx'].forEach(i=>$('#'+i).value='');ok('বই প্রকাশ হয়েছে।')}catch(x){fail(x)}
+};
+$('#login').onclick=()=>signInWithEmailAndPassword(auth,$('#ae').value.trim(),$('#ap').value).then(()=>ok('')).catch(fail);
+$('#signup').onclick=async()=>{try{const n=$('#an').value.trim();if(!n)return ok('নতুন একাউন্টের জন্য আপনার নাম লিখুন।');
+  const c=await createUserWithEmailAndPassword(auth,$('#ae').value.trim(),$('#ap').value);await updateProfile(c.user,{displayName:n});me=c.user;ok('')}catch(x){fail(x)}};
+$('#goog').onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).then(()=>ok('')).catch(fail);
+$('#out').onclick=()=>signOut(auth);
+
+/* ---------- ডেটা সাবস্ক্রিপশন ---------- */
+onSnapshot(collection(db,'books'),s=>{books={};s.docs.forEach(d=>books[d.id]=d.data());renderBooks();renderAdmin();if(rd)drawReader(true)},fail);
+const listen=(q,fn)=>subs.push(onSnapshot(q,s=>fn(s.docs.map(d=>({id:d.id,...d.data()}))),fail));
+onAuthStateChanged(auth,async u=>{
+  subs.forEach(f=>f());subs=[];me=u;admin=false;posts=[];cms=[];reps=[];bans=[];
+  if(u){
+    try{admin=(await getDoc(doc(db,'admins',u.uid))).exists()}catch(e){}
+    listen(query(collection(db,'posts'),orderBy('t','desc'),limit(50)),a=>{posts=a;renderFeed()});
+    listen(query(collection(db,'comments'),orderBy('t','asc'),limit(400)),a=>{cms=a;renderFeed()});
+    if(admin){listen(collection(db,'reports'),a=>{reps=a;renderAdmin()});listen(collection(db,'bans'),a=>{bans=a;renderAdmin()})}
+  }
+  $('#auth').hidden=!!u;$('#comm').hidden=!u;$('#out').hidden=!u;
+  $('#admtab').hidden=!admin;$('#role').hidden=!admin;
+  if(!admin&&tab==='adm')setTab('books');
+  renderFeed();renderAdmin();
+});
+renderBooks();
+</script>
+</body>
+</html>
